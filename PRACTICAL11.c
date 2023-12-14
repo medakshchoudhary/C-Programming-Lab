@@ -1,31 +1,47 @@
 #include <stdio.h>
-
-void swapByValue(int a, int b) {
-    int temp = a;
-    a = b;
-    b = temp;
-}
-
-void swapByReference(int* a, int* b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
-int main() {
-    int num1 , num2 ;
-    printf("Enter the value of num1: ");
-    scanf("%d", &num1);
-    printf("Enter the value of num2: ");
-    scanf("%d", &num2);
-
-    printf("Before swapping: num1 = %d, num2 = %d\n\n", num1, num2);
-
-    swapByValue(num1, num2);
-    printf("After swapping using pass by value: num1 = %d, num2 = %d\n", num1, num2);
-
-    swapByReference(&num1, &num2);
-    printf("After swapping using pass by reference: num1 = %d, num2 = %d\n\n", num1, num2);
-
-    return 0;
+#include <stdlib.h>
+void main()
+{
+    int n;
+    printf("Enter the value of n :- ");
+    scanf("%d", &n);
+    int *arr1 = (int *)malloc(n * sizeof(int));
+    int *arr2 = (int *)calloc(n,sizeof(int));
+    if(arr1 == NULL||arr2 == NULL)
+    {
+    printf("Memory Error!\n");
+    }
+    else
+    {
+        for(int i=0;i<n;i++)
+        {
+        *(arr1+i) = i;
+        }
+        for(int i=0;i<n;i++)
+        {
+        *(arr2+i) = n-i;
+        }
+    }
+    int *arr3 = (int*)realloc(arr1,(n/2) *sizeof(int));
+    int *arr4 = (int*)realloc(arr2,(2*n) *sizeof(int)); 
+    if(arr3==NULL||arr4==NULL)
+    {
+        printf("Reallocation Failed!\n");
+    }
+    else
+    {
+        for(int i=0;i<n;i++)
+        {
+        printf("%d\n",*(arr3+i));
+        }
+        printf("\n");
+        for(int i=0;i<2*n;i++)
+        {
+        printf("%d\n",*(arr4+i));
+        }
+    }
+    free(arr1);
+    free(arr2);
+    free(arr3);
+    free(arr4);
 }
